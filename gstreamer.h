@@ -3,7 +3,6 @@
 
 #include <gst/gst.h>
 #include <stdbool.h>
-#include <ncurses.h>
 #include <string.h>
 
 bool init_gstreamer();

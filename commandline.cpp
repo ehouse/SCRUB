@@ -18,5 +18,5 @@ void *thread_init(void*){
 
 void argument_parser(int argc, char *argv[]){
 	int return_status;
-	start_gstreamer();
+	start_gstreamer(); // Starts gstreamer thread for audio playback
 }
