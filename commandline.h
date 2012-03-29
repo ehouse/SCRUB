@@ -5,22 +5,15 @@
 #include <string.h>
 #include <pthread.h>
 #include <stdio.h>
-#include "gstreamer.h"
+#include <string>
+#include "gstreamer_wrapper.h"
 
-//definitions
-#define BUFFERSIZE 2048
+//namespaces
+using namespace std;
 
-//functions
+// functions
 void start_gstreamer();
-void* thread_init(void*);
-void argument_parser(int argc, char *argv[]);
-void set_buffer();
-void buffer_args();
-
-//global variables
-static char buffer[BUFFERSIZE];
-static char *bufferp = &buffer[0];
-static char command[32];
-static char* command_argsp[32];
+void *thread_init(void*);
+void argument_parser(int,char**);
 
 #endif

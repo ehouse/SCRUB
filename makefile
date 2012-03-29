@@ -1,4 +1,4 @@
-CC=gcc
+CC=g++
 CSRC:=./*.cpp
 LIBFLAGS:= --mode=link $(CC) `pkg-config --cflags --libs gstreamer-0.10` -o scumb
 LIBFLAGS_TESTING:= --mode=link $(CC) `pkg-config --cflags --libs gstreamer-0.10` -o scumb -ggdb -Wall

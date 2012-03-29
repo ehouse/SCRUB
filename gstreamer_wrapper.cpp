@@ -1,4 +1,4 @@
-#include "gstreamer.h"
+#include "gstreamer_wrapper.h"
 #include "commandline.h"
 
 GstElement *pipeline;
