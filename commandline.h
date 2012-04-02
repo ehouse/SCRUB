@@ -9,11 +9,14 @@
 #include "gstreamer_wrapper.h"
 
 //namespaces
+
 using namespace std;
 
 // functions
+
 void start_gstreamer();
 void *thread_init(void*);
+void terminate(int status);
 void argument_parser(int,char**);
 
 #endif
