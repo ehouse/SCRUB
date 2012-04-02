@@ -1,12 +1,12 @@
-#ifndef COMMANDLINE_GAURD_H
-#define COMMANDLINE_GAURD_H
+#ifndef COMMANDLINE_GUARD_H
+#define COMMANDLINE_GUARD_H
 
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
-#include <stdio.h>
-#include <string>
+#include <cstdio>
 #include "gstreamer_wrapper.h"
+#include "helpDoc.h"
 
 //namespaces
 
