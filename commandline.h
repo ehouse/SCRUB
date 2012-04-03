@@ -14,9 +14,11 @@ using namespace std;
 
 // functions
 
-void start_gstreamer();
-void *thread_init(void*);
-void terminate(int status);
-void argument_parser(int,char**);
+void start_gstreamer();             // Calls thread_init and creates thread
+void *thread_init(void*);           // Becomes a threaded application
+void terminate(int status);         // Terminates the process with proper error code
+void argument_parser(int,char**);   // Main Program Logic
+bool check_file(char *);            // Checks whether file is valid
+bool chcek_stream(char *);          // Checks if stream is valid
 
 #endif
