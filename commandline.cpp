@@ -1,4 +1,5 @@
-/* commandline.cpp
+/* 
+ * commandline.cpp
  * Written By Ethan House
  *
  * Contains bulk of the program logic. 
@@ -30,17 +31,21 @@ void terminate(int status){
 
 	switch(status){
 		case 0:
-			exit(0);
+			break;
 		case 1:
-			printf("Incompatible Flags\n");
-			exit(1);
+			fprintf(stderr,"Incompatible Flags, exiting\n");
+			break;
 		case 2:
-			printf("File or Stream doesn't exist\n");
-			exit(2);
+			fprintf(stderr,"File or Stream doesn't exist, exiting\n");
+			break;
+		case 3:
+			fprintf(stderr,"Memory Allocation Error, exiting\n");
+			break;
 		default:
-			printf("I Just don't know what went wrong\n");
-			exit(status);
+			fprintf(stderr,"I Just don't know what went wrong, exiting\n");
+			break;
 	}
+	exit(status);
 }
 
 void argument_parser(int argc, char *argv[]){
@@ -50,11 +55,14 @@ void argument_parser(int argc, char *argv[]){
 	char *file_location = NULL;
 	char *stream_location = NULL;
 	char *cwd=NULL;
+	char *destination;
+	int array_size1;
+	int array_size2;
 	size_t size;
-
+	
 	// function calls
 	start_gstreamer();        // Starts gstreamer thread for audio playback
-
+	
 	// argument checker
 	for(int x = 0;x < argc;x++){
 		if(!strcmp(argv[x],"-v" ) || !strcmp(argv[x],"--version")){
@@ -78,22 +86,48 @@ void argument_parser(int argc, char *argv[]){
 			file_location = argv[x+1];
 		}
 	}
+	
+	// At this point we check to see if stream or file are actually there.
+	// If files do not exist then we return the proper error codes and terminate
+	// cleanly.
 	if(file_location != NULL){
-		if(check_file(file_location)){
-			cwd=getcwd(cwd,size);
-			//pass cwd to gstreamer at this point
-		}else{
-			terminate(2);
+		cwd=getcwd(cwd,size);
+		if(file_location[0] == '.' && file_location[1] == '/'){
+			// Not Implemented
+		}
+		else if(file_location[0] == '/'){
+			// Not Implemented
+		}
+		else{
+			array_size1 = strlen(file_location);
+			array_size2 = strlen(cwd);
+			destination = new char[array_size1+array_size2];
+			if(destination == 0){
+				terminate(3); // terminate with memory allocation error
+			}
+			strcpy(destination,cwd);
+			strcat(destination,"/");
+			strcat(destination,file_location);
+			if(check_file(destination)){
+				// All Good
+			}else{
+				// I just don't know what went wrong
+				printf("Unable to locate file: %s\n",destination);
+				terminate(2);
+			}
 		}
 	}
 	else if(stream_location != NULL){
-		//stuff
+		// Not implemented
 	}else{
+		// Not implemented
 		terminate(2);
 	}
 }
 
 bool check_file(char *file_loc){
+	// if file exists return true
+	// We did not use boost which would have been easier but is another dep
 	FILE * pfile;
 	pfile = fopen(file_loc,"r");
 	if (pfile==NULL){
@@ -105,6 +139,7 @@ bool check_file(char *file_loc){
 }
 
 bool check_stream(char *stream_loc){
+	// Not Implemented
 	return true;
 }
 
