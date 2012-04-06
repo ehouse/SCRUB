@@ -59,7 +59,7 @@ void argument_parser(int argc, char *argv[]){
 	int array_size1;
 	int array_size2;
 	size_t size;
-	
+	 
 	// function calls
 	start_gstreamer();        // Starts gstreamer thread for audio playback
 	
@@ -96,7 +96,14 @@ void argument_parser(int argc, char *argv[]){
 			// Not Implemented
 		}
 		else if(file_location[0] == '/'){
-			// Not Implemented
+			strcpy(destination,file_location);
+			if (check_file(destination)) {
+				// All Good
+			}else {
+				// Unable to locate file
+				printf("Unable to locate file: %s\n",destination);
+				terminate(2);
+			}
 		}
 		else{
 			array_size1 = strlen(file_location);
@@ -111,7 +118,7 @@ void argument_parser(int argc, char *argv[]){
 			if(check_file(destination)){
 				// All Good
 			}else{
-				// I just don't know what went wrong
+				// Unable to locate file
 				printf("Unable to locate file: %s\n",destination);
 				terminate(2);
 			}
