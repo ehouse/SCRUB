@@ -28,6 +28,7 @@ void terminate(int status){
 	// status(0) : Exit Cleanly
 	// status(1) : incompatible flags
 	// status(2) : File or Stream doesn't exist
+	// status(3) : Memory Allocation Error
 
 	switch(status){
 		case 0:
